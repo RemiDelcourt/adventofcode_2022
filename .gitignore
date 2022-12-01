@@ -4,3 +4,9 @@
 
 # Conventional directory for build output.
 build/
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
