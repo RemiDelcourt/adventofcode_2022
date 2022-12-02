@@ -29,10 +29,9 @@ void main(){
     int scoreTotal_p2 = 0;
     for(String tour in listeTours){
         List<String> combat = tour.split(" ");
+        // Partie 1
         int scoreForme = val[combat.last]!.first;
         int scoreResultat = gammeResultats[(val[combat.last]!.first - val[combat.first]!.first) % 3];
-
-        // Partie 1
         int scoreCombat =  scoreForme + scoreResultat;
         scoreTotal_p1 += scoreCombat;
 
