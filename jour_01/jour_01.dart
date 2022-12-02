@@ -3,7 +3,7 @@ import "dart:math";
 
 void main() {
   // Partie 1
-  List<String> lignes = File("./bin/jour_01/input.txt").readAsLinesSync();
+  List<String> lignes = File("./jour_01/input.txt").readAsLinesSync();
   List<int> listeCalories = [];
   int accuCalories = 0;
   for (int i = 0; i < lignes.length; i++) {
