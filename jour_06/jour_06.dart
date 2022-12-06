@@ -1,5 +1,4 @@
 import "dart:io";
-import "package:collection/collection.dart";
 
 void main(){
   List<String> signal = File("./jour_06/input.txt").readAsStringSync().split("")..removeLast();
