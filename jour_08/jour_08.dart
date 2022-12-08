@@ -37,12 +37,12 @@ void main(){
     // De droite à gauche
     List<int> ligneRenv = carte[ligne].reversed.toList();
     listePos.add("${ligne}${nbColonne-1}");
-    int droiteMax = carte[ligne][nbColonne-1];
+    int droiteMax = ligneRenv[0];
     for(int colonne = 1; colonne < nbColonne ; colonne++){
       if(droiteMax < ligneRenv[colonne]){
         listePos.add("$ligne${nbColonne-1-colonne}");
       }
-      droiteMax = max(droiteMax, carte[ligne][colonne]);
+      droiteMax = max(droiteMax, ligneRenv[colonne]);
     }
   }
 
