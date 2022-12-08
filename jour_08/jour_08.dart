@@ -11,7 +11,7 @@ const String test = """
 
 List<String> reponse = ["00","01","02","03","04","10","11","12","14","20","21","23","24","30","32","34","40","41","42","43","44"];
 void main(){
-  List<String> fichier = File("./jour_08/input.txt").readAsLinesSync();
+  List<String> fichier = File("./jour_08/input_greg.txt").readAsLinesSync();
   //fichier = test.split("\n")..removeLast();
 
   List<List<int>> carte = [];
@@ -30,7 +30,7 @@ void main(){
     int gaucheMax = carte[ligne][0];
     for(int colonne = 1; colonne < nbColonne ; colonne++){
       if(gaucheMax < carte[ligne][colonne]){
-        listePos.add("$ligne$colonne");
+        listePos.add("L${ligne}C${colonne}");
         gaucheMax = carte[ligne][colonne];
       }
     }
@@ -40,20 +40,21 @@ void main(){
     int droiteMax = carte[ligne][nbColonne-1];
     for(int colonne = nbColonne-2; colonne >= 0 ; colonne--){
       if(droiteMax < carte[ligne][colonne]){
-        listePos.add("$ligne$colonne");
+        listePos.add("L${ligne}C${colonne}");
         droiteMax = carte[ligne][colonne];
       }
     }
   }
 
 
-  // De haut en bas
+
   for(int colonne = 0; colonne < nbColonne; colonne++){
+    // De haut en bas
     listePos.add("${0}${colonne}");
     int hautMax = carte[0][colonne];
     for(int ligne = 1; ligne < nbLigne ; ligne++){
       if(hautMax < carte[ligne][colonne]){
-        listePos.add("$ligne$colonne");
+        listePos.add("L${ligne}C${colonne}");
         hautMax = carte[ligne][colonne];
       }
     }
@@ -63,7 +64,7 @@ void main(){
     int basMax = carte[nbLigne-1][colonne];
     for(int ligne = nbLigne - 2 ; ligne >= 0; ligne--){
       if(basMax < carte[ligne][colonne]){
-        listePos.add("$ligne$colonne");
+        listePos.add("L${ligne}C${colonne}");
         basMax = carte[ligne][colonne];
       }
     }
