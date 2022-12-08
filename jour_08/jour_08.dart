@@ -70,7 +70,7 @@ void main(){
   }
 
   print(listePos);
-  //liste finale
+  //liste finale : il me manque l'arbre 21 (ligne 2, colonne 1)
   print(listePos.toSet());
   // nb arbres visibles
   print(listePos.toSet().length);
