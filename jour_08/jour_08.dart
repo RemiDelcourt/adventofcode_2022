@@ -1,18 +1,9 @@
 import "dart:io";
-
 import 'package:collection/collection.dart';
 
-const String test = """
-30373
-25512
-65332
-33549
-35390
-""";
 
 void main(){
   List<String> fichier = File("./jour_08/input.txt").readAsLinesSync();
-  //fichier = test.split("\n")..removeLast();
 
   List<List<int>> carte = [];
   for(String ligne in fichier){
