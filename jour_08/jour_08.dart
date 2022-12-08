@@ -60,7 +60,7 @@ void main(){
     }
 
   // De bas en Haut
-    listePos.add("${carte.length-1}${colonne}");
+    listePos.add("${nbLigne-1}${colonne}");
     int basMax = carte[nbLigne-1][colonne];
     for(int ligne = nbLigne - 2 ; ligne >= 0; ligne--){
       if(basMax < carte[ligne][colonne]){
@@ -70,10 +70,11 @@ void main(){
     }
   }
 
+  // nb arbres brut
   print(listePos);
-  //liste finale : il me manque l'arbre 21 (ligne 2, colonne 1)
-  print(listePos.toSet());
   // nb arbres visibles
+  print(listePos.toSet());
+
   print(listePos.toSet().length);
 
 }
