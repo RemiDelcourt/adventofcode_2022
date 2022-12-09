@@ -2,7 +2,6 @@ import "dart:io";
 
 class Corde{
   Set<String> set = {};
-  Point tete = Point(0, 0);
   List<Point> corps = [];
 
   Corde({required int nbSegment}){
@@ -96,11 +95,11 @@ void main(){
   List<String> lignesFichier = File("./jour_09/input.txt").readAsLinesSync();
   List<Commande> commandes = analyserLignes(lignesFichier);
 
-  Corde cordeP1 = Corde(nbSegment: 1);
+  Corde cordeP1 = Corde(nbSegment: 2);
   traiterCorde(cordeP1, commandes);
   print("Partie 1 : Nombre positions visitées par la Queue --> ${cordeP1.set.length}");
 
-  Corde cordeP2 = Corde(nbSegment: 9);
+  Corde cordeP2 = Corde(nbSegment: 10);
   traiterCorde(cordeP2, commandes);
   print("Partie 2 : Nombre positions visitées par la Queue --> ${cordeP2.set.length}");
 }
@@ -110,9 +109,7 @@ void traiterCorde(Corde corde, commandes){
   corde.addSet();
   for(int c = 0 ; c < commandes.length ; c++){
     for(int p = 0  ; p < commandes[c].pas ; p++){
-      corde.tete.avancer(commandes[c].direction);
-      corde.corps.first.suivre(corde.tete, 0);
-      corde.addSet();
+      corde.corps.first.avancer(commandes[c].direction);
       for(int s = 1; s < corde.corps.length ;s++) {
         corde.corps[s].suivre(corde.corps[s-1], s);
         corde.addSet();
