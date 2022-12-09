@@ -67,10 +67,7 @@ class Point{
 }
 
 enum Direction{
-  haut,
-  bas,
-  gauche,
-  droite;
+  haut, bas, gauche, droite;
   factory Direction.fromString(String strDir){
     switch(strDir){
       case "U" : return Direction.haut;
