@@ -22,7 +22,12 @@ class Point{
 
   @override
   String toString() {
-    return "($x,$y)";
+    return "$x,$y";
+  }
+
+  @override
+  bool operator ==(Object autre){
+    return autre is Point && x == autre.x && y == autre.y;
   }
 
   void avancer(Direction direction){
@@ -34,34 +39,30 @@ class Point{
     }
   }
 
-  void suivre(Point tete, int indiceNoeud){
+  void suivre(Point devant){
     int distanceX = 0;
     int distanceY = 0;
-    if(y == tete.y){
-      distanceX  = tete.x - x;
+    if(y == devant.y){
+      distanceX  = devant.x - x;
       if(distanceX.abs() > 1){
         x += distanceX.sign;
       }
     }
-    if(x == tete.x){
-      distanceY = tete.y - y;
+    if(x == devant.x){
+      distanceY = devant.y - y;
       if(distanceY.abs() > 1){
         y += distanceY.sign;
       }
     }
-    if(this != tete){
-      distanceX = tete.x - x;
-      distanceY = tete.y - y;
+    if(this != devant){
+      distanceX = devant.x - x;
+      distanceY = devant.y - y;
       int sommeDistance = distanceX.abs() + distanceY.abs();
       if([3,4].contains(sommeDistance)){
         x += distanceX.sign;
         y += distanceY.sign;
       }
     }
-  }
-  @override
-  bool operator ==(Object autre){
-    return autre is Point && x == autre.x && y == autre.y;
   }
 }
 
@@ -108,8 +109,8 @@ void traiterCorde(Corde corde, commandes){
   for(int c = 0 ; c < commandes.length ; c++){
     for(int p = 0  ; p < commandes[c].pas ; p++){
       corde.corps.first.avancer(commandes[c].direction);
-      for(int s = 1; s < corde.corps.length ;s++) {
-        corde.corps[s].suivre(corde.corps[s-1], s);
+      for(int s = 1 ; s < corde.corps.length ; s++) {
+        corde.corps[s].suivre(corde.corps[s-1]);
         corde.addSet();
       }
     }
