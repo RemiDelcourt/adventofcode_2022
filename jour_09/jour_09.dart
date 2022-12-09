@@ -13,7 +13,6 @@ class Corde{
   void addSet(){
     set.add(corps.last.toString());
   }
-
 }
 
 class Point{
@@ -103,7 +102,6 @@ void main(){
   traiterCorde(cordeP2, commandes);
   print("Partie 2 : Nombre positions visitées par la Queue --> ${cordeP2.set.length}");
 }
-
 
 void traiterCorde(Corde corde, commandes){
   corde.addSet();
