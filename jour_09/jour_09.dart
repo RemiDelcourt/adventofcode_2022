@@ -53,7 +53,7 @@ class Point{
       distanceX = tete.x - x;
       distanceY = tete.y - y;
       int sommeDistance = distanceX.abs() + distanceY.abs();
-      if( [3,4].contains(sommeDistance)){
+      if([3,4].contains(sommeDistance)){
         x += distanceX.sign;
         y += distanceY.sign;
       }
