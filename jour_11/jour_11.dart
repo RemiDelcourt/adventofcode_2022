@@ -160,45 +160,4 @@ void main(){
   max_2 = listeInspection[1];
   niveau  = max_1 * max_2;
   print("Niveau au bout de $nbTours tours : $niveau");
-
-
-
-}
-
-
-
-
-int pcm(int a, int b) {
-  int gcd(int x, int y) {
-    if (x == 0) {
-      return y;
-    }
-    return gcd(y % x, x);
-  }
-
-  return (a * b) ~/ gcd(a, b);
-}
-
-int pcd(int a, int b) {
-
-  if (a == 0) {
-    return b;
-  }
-  return pcd(b % a, a);
-}
-
-int pgcd(int a, int b) {
-  // Si l'un des nombres est nul, le pgcd est l'autre nombre.
-  if (a == 0 || b == 0) {
-    return a + b;
-  }
-
-  // Appliquons l'algorithme d'Euclide pour trouver le pgcd.
-  int reste;
-  while (b != 0) {
-    reste = a % b;
-    a = b;
-    b = reste;
-  }
-  return a;
 }
