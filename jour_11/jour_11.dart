@@ -1,5 +1,4 @@
 import "dart:io";
-import 'dart:math';
 import "package:collection/collection.dart";
 
 class Singe{
@@ -11,7 +10,6 @@ class Singe{
   late int _indexSingeFalse;
 
   int compteurInspection = 0;
-  late int divisible;
 
   @override
   String toString() {
@@ -38,20 +36,18 @@ class Singe{
     _creerOperationTest(divisible);
     _indexSingeTrue = int.parse(singeTrue);
     _indexSingeFalse = int.parse(singeFalse);
-    this.divisible = int.parse(divisible);
   }
 
   int inspecter(int objet){
     compteurInspection ++;
-
     return _operationInspecte(objet);
   }
+
   bool tester(int objet){
     //print("test : $objet");
     return _operationTest(objet);
   }
   void _creerOperationInspecte(String operateur, String valeur, String numPartie){
-
     int? integerValeur = int.tryParse(valeur);
     if(numPartie == "P1"){
       switch(operateur){
