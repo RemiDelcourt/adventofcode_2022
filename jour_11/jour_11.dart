@@ -19,28 +19,16 @@ class Singe{
   }
 
   void joueTour(List<Singe> singes){
-
-  print(objets);
     for(int obj in objets){
-      //print("  Objet : $obj");
-      //print("    inspecte");
-      stdout.write("Avant: $obj");
-
       obj = inspecter(obj);
-      stdout.write(", Après : $obj\n");
-
-      //print("    evalue");
       bool resEval = tester(obj);
-      //print("    lance");
       if(resEval == true){
-        //obj = divisible;
         singes[_indexSingeTrue].objets.add(obj);
       }
       else{
         singes[_indexSingeFalse].objets.add(obj);
       }
     }
-    //print("  se debarasse");
     objets.clear();
   }
 
