@@ -4,8 +4,8 @@ import "package:collection/collection.dart";
 class Singe{
   static int moduloZinzin = 1;
   List<int> objets = [];
-  var _operationInspecte;
-  var _operationTest;
+  var inspecter;
+  var tester;
   late int _indexSingeTrue;
   late int _indexSingeFalse;
 
@@ -19,6 +19,7 @@ class Singe{
   void joueTour(List<Singe> singes){
     for(int obj in objets){
       obj = inspecter(obj);
+      compteurInspection ++;
       bool resEval = tester(obj);
       if(resEval == true){
         singes[_indexSingeTrue].objets.add(obj);
@@ -38,45 +39,36 @@ class Singe{
     _indexSingeFalse = int.parse(singeFalse);
   }
 
-  int inspecter(int objet){
-    compteurInspection ++;
-    return _operationInspecte(objet);
-  }
-
-  bool tester(int objet){
-    return _operationTest(objet);
-  }
-
   void _creerOperationInspecte(String operateur, String valeur, String numPartie){
     int? integerValeur = int.tryParse(valeur);
     if(numPartie == "P1"){
       switch(operateur){
         case "+" : switch(integerValeur){
-          case null: _operationInspecte = (int x) => ((x + x) / 3).floor(); break;
-          default: _operationInspecte = (int x) =>  ((x + integerValeur!) / 3).floor(); break;
+          case null: inspecter = (int x) => ((x + x) / 3).floor(); break;
+          default: inspecter = (int x) =>  ((x + integerValeur!) / 3).floor(); break;
         }  break;
         case "*" : switch(integerValeur){
-          case null: _operationInspecte = (int x) => ((x * x) / 3).floor(); break;
-          default: _operationInspecte = (int x) => ((x * integerValeur!) / 3).floor(); break;
+          case null: inspecter = (int x) => ((x * x) / 3).floor(); break;
+          default: inspecter = (int x) => ((x * integerValeur!) / 3).floor(); break;
         } break;
       }
     }
     else if(numPartie == "P2"){
       switch(operateur){
         case "+" : switch(integerValeur){
-          case null: _operationInspecte = (int x) => (x + x) % moduloZinzin;   break;
-          default: _operationInspecte = (int x) => (x + integerValeur!) %moduloZinzin ; break;
+          case null: inspecter = (int x) => (x + x) % moduloZinzin;   break;
+          default: inspecter = (int x) => (x + integerValeur!) %moduloZinzin ; break;
         }  break;
         case "*" : switch(integerValeur){
-          case null: _operationInspecte = (int x) => (x*x) % moduloZinzin; break;
-          default: _operationInspecte = (int x) => (x * integerValeur!) %moduloZinzin ; break;
+          case null: inspecter = (int x) => (x*x) % moduloZinzin; break;
+          default: inspecter = (int x) => (x * integerValeur!) %moduloZinzin ; break;
         } break;
       }
     }
   }
   void _creerOperationTest(String valeur){
     int integerValeur = int.parse(valeur);
-    _operationTest = (int x) => x % integerValeur == 0;
+    tester = (int x) => x % integerValeur == 0;
   }
 }
 
