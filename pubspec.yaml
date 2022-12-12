@@ -7,6 +7,7 @@ environment:
 
 dependencies:
   collection: ^1.17.0
+  graphs: ^2.2.0
 
 dev_dependencies:
   lints: ^2.0.0
