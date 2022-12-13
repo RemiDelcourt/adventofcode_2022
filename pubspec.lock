@@ -8,13 +8,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.17.0"
-  graphs:
-    dependency: "direct main"
-    description:
-      name: graphs
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.0"
   lints:
     dependency: "direct dev"
     description:
@@ -23,4 +16,4 @@ packages:
     source: hosted
     version: "2.0.1"
 sdks:
-  dart: ">=2.18.5 <3.0.0"
+  dart: ">=2.18.2 <3.0.0"
