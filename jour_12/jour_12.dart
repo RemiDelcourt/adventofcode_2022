@@ -2,7 +2,7 @@ import "dart:io";
 import "dart:math" ;
 import 'package:collection/collection.dart';
 
-/* Repris de mykdavies */
+/* Basé sur le travail de mykdavies */
 
 void main() {
   List<String> lignes = File("./jour_12/input.txt").readAsLinesSync();
