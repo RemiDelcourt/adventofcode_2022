@@ -2,7 +2,7 @@ import 'dart:collection';
 import "dart:io";
 
 import 'package:collection/collection.dart';
-import 'package:graphs/graphs.dart';
+import 'package:graphs/graphs.dart' as pgraph;
 
 class Case {
   late int x, y;
@@ -16,16 +16,21 @@ class Case {
 }
 
 class Graph {
-  final Map<Case, List<Case>> nodes;
+  final Map<Node, List<Node>> nodes;
 
   Graph(this.nodes);
+
+
 }
 
 class Node {
-  final String id;
+  late final String id;
   final int data = 1;
+  late int x, y;
+  late int val ;
 
-  Node(this.id);
+  Node.init(this.id);
+  Node();
 
   @override
   bool operator ==(Object other) => other is Node && other.id == id;
@@ -52,8 +57,8 @@ void main(){
   int hauteur = strGrille.length;
 
   print("- Récupération coordonnées de la case de départ et d'arrivée");
-  Case coordDepart = trouverCoord(strGrille, largeur, hauteur, "S");
-  Case coordArrivee = trouverCoord(strGrille, largeur, hauteur, "E");
+  Node coordDepart = trouverCoord(strGrille, largeur, hauteur, "S");
+  Node coordArrivee = trouverCoord(strGrille, largeur, hauteur, "E");
   print("   Depart: $coordDepart   --  Arrivee: $coordArrivee");
 
   print("- Substitution des valeurs des cases départ et arrivée par leurs lettres");
@@ -61,23 +66,18 @@ void main(){
   strGrille[coordArrivee.y][coordArrivee.x] = "z";
 
   print("- Conversion grille de lettres en grille de Cases");
-  Grille<Case> grille = convertirEnGrilleCases(strGrille, largeur, hauteur);
+  Grille<Node> grille = convertirEnGrilleCases(strGrille, largeur, hauteur);
   print(grille);
 
   print("- Création du graphe");
   Graph graphe = Graph(voisins(grille, hauteur, largeur));
-  print(graphe);
+  print(graphe.nodes);
 
   print("- Dijkstra");
-  var resDij = dijkstra(graphe, coordDepart.toString(), coordArrivee.toString());
-  resDij.forEach((key, value) {
-    print("$key: $value");
-  });
-  print(resDij.keys.length);
 
-  
-  shortestPath(coordDepart.toString(), coordArrivee.toString(),graphe)
-  
+  var dij = pgraph.shortestPath<Node>(coordDepart, coordArrivee, (node) => graphe.nodes[node] ?? [] );
+
+
 }
 
 
@@ -118,23 +118,29 @@ Map<String, String> dijkstra(Map<String, List<String>> graph, String startNode, 
 }
 
 
-Grille<Case> convertirEnGrilleCases (Grille<String> grille, int largeur, int hauteur){
-  Grille<Case> caseGrille = List.generate(hauteur, (index) => List.generate(largeur, (index) => Case(), growable: false), growable: false);
+Grille<Node> convertirEnGrilleCases (Grille<String> grille, int largeur, int hauteur){
+  Grille<Node> caseGrille = List.generate(hauteur, (index) => List.generate(largeur, (index) => Node(), growable: false), growable: false);
   for (int i = 0; i < hauteur; i++) {
     for (int j = 0; j < largeur; j++) {
       caseGrille[i][j].val = (grille[i][j]).codeUnitAt(0);
       caseGrille[i][j].x = j;
       caseGrille[i][j].y = i;
+      caseGrille[i][j].id = "$i,$j";
+
     }
   }
   return caseGrille;
 }
 
-Case trouverCoord(Grille<String> grille, int largeur, int hauteur, String element){
+Node trouverCoord(Grille<String> grille, int largeur, int hauteur, String element){
   for (int i = 0; i < hauteur; i++) {
     for (int j = 0; j < largeur; j++) {
         if(grille[i][j] == element){
-          return Case.init(x:j, y:i);
+          Node node = Node();
+          node.x = j;
+          node.y = i;
+          node.id = "$i,$j";
+          return node;
         }
     }
   }
@@ -142,45 +148,45 @@ Case trouverCoord(Grille<String> grille, int largeur, int hauteur, String elemen
 }
 
 
-Map<String, List<String>>  voisins(Grille<Case> grille, int hauteur, int largeur) {
+Map<Node, List<Node>>  voisins(Grille<Node> grille, int hauteur, int largeur) {
 
-  Map<String, List<String>> graphe = {};
+  Map<Node, List<Node>> graphe = {};
   for (int i = 0; i < hauteur; i++) {
     for (int j = 0; j < largeur; j++) {
-      List<String> voisins = [];
-      Case caseVoisine;
-      Case caseActuelle = grille[i][j];
+      List<Node> voisins = [];
+      Node caseVoisine;
+      Node caseActuelle = grille[i][j];
 
       // Voisin en haut
       if(i > 0 ){
         caseVoisine = grille[i-1][j];
         if([caseActuelle.val-1, caseActuelle.val, caseActuelle.val+1].contains(caseVoisine.val) ){
-          voisins.add(caseVoisine.toString());
+          voisins.add(caseVoisine);
         }
       }
       // Voisin en bas
       if(i < hauteur-1){
         caseVoisine = grille[i+1][j];
         if([caseActuelle.val-1, caseActuelle.val, caseActuelle.val+1].contains(caseVoisine.val) ){
-          voisins.add(caseVoisine.toString());
+          voisins.add(caseVoisine);
         }
       }
       // Voisin à gauche
       if( j > 0 ){
         caseVoisine = grille[i][j-1];
         if([caseActuelle.val-1, caseActuelle.val, caseActuelle.val+1].contains(caseVoisine.val) ){
-          voisins.add(caseVoisine.toString());
+          voisins.add(caseVoisine);
         }
       }
       // Voisin à droite
       if(j < hauteur-1){
         caseVoisine = grille[i][j+1];
         if([caseActuelle.val-1, caseActuelle.val, caseActuelle.val+1].contains(caseVoisine.val) ){
-          voisins.add(caseVoisine.toString());
+          voisins.add(caseVoisine);
         }
       }
 
-      graphe[caseActuelle.toString()] = voisins;
+      graphe[caseActuelle] = voisins;
     }
   }
   return graphe;
