@@ -39,7 +39,7 @@ class Node {
   int get hashCode => id.hashCode;
 
   @override
-  String toString() => '<$id -> $data>';
+  String toString() => '<$id>';
 }
 
 
@@ -76,7 +76,7 @@ void main(){
   print("- Dijkstra");
 
   var dij = pgraph.shortestPath<Node>(coordDepart, coordArrivee, (node) => graphe.nodes[node] ?? [] );
-
+  print(dij);
 
 }
 
@@ -137,6 +137,12 @@ Node trouverCoord(Grille<String> grille, int largeur, int hauteur, String elemen
     for (int j = 0; j < largeur; j++) {
         if(grille[i][j] == element){
           Node node = Node();
+          if(element == "S"){
+            node.val = "a".codeUnitAt(0);
+          }
+          else if(element == "E"){
+            node.val = "z".codeUnitAt(0);
+          }
           node.x = j;
           node.y = i;
           node.id = "$i,$j";
