@@ -23,6 +23,12 @@ class Grille{
     }
   }
 
+  void remplirSol(){
+    for(int x = 0; x < longueur ; x++){
+      cases[hauteur-1][x] = Terrain.roche;
+    }
+  }
+
   void simulerEcoulement(){
     while(true){
       try {
@@ -64,14 +70,14 @@ class Grille{
 
   @override
   String toString() {
-    String aff = "";
+    String aff = " ";
     for(int y = 0; y < hauteur ; y++){
       for(int x = 0; x < longueur ; x++){
         if(y == grain.y && x == grain.x){
           aff += "+ ";
         }
         else{
-          aff += "${cases[y][x]} ";
+          aff += "${cases[y][x]}";
         }
       }
       aff += "\n";
@@ -84,18 +90,29 @@ class Grille{
 void main(){
   String contenu = File("./jour_14/input.txt").readAsStringSync();
   Map<String, int> limites = calculerLimites(contenu);
+
+  print("------ Partie 1 ------");
   List<List<Point<int>>> traces = transformerFichier(contenu, limites["xDec"]!, limites["yDec"]!);
   List<Point<int>> tracesInterpol = interpolerTraces(traces);
   Point<int> grain = Point(500-limites["xDec"]!, 0-limites["yDec"]!);
   Grille grille = Grille(limites["longueur"]!, limites["hauteur"]!, tracesInterpol, grain);
   print(grille);
 
-
   grille.simulerEcoulement();
   print(grille);
-  print("Quantité de sable : ${grille.compteurSable}");
-}
+  print("Partie 1 -> Quantité de sable : ${grille.compteurSable}\n");
 
+  // Partie 2
+  print("------ Partie 2------");
+  List<List<Point<int>>> traces2 = transformerFichier(contenu, 0, 0);
+  List<Point<int>> tracesInterpol2 = interpolerTraces(traces2);
+  Point<int> grain2 = Point(500, 0);
+  Grille grille2 = Grille(limites["xMax"]!+10000, limites["yMax"]!+3, tracesInterpol2, grain2);
+  grille2.remplirSol();
+  grille2.simulerEcoulement();
+
+  print("Partie 2 -> Quantité de sable : ${grille2.compteurSable}\n");
+}
 
 
 
@@ -177,7 +194,9 @@ Map<String,int> calculerLimites(String contenu){
     "longueur": longueur,
     "hauteur" : hauteur,
     "xDec" : xMin,
-    "yDec" : yMin
+    "yDec" : yMin,
+    "xMax" : xMax,
+    "yMax" : yMax,
   };
   return limites;
 }
